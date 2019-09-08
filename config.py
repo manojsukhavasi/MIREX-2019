@@ -1,9 +1,9 @@
 CONFIG = {
-    'classical':{
+    'classical': {
         'num_classes': 11,
         'samples': 2772
     },
-    'us_pop':{
+    'us_pop': {
         'num_classes': 10,
         'samples': 7000
     },

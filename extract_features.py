@@ -2,7 +2,6 @@ import os
 import librosa
 import argparse
 import numpy as np
-import pandas as pd
 from joblib import Parallel, delayed
 from tqdm import tqdm
 
@@ -21,13 +20,13 @@ def compute_melspec(filename, outdir):
     logmel = librosa.core.power_to_db(melspec)
     np.save(outdir + os.path.basename(filename).split('.')[0] + '.npy', logmel)
 
+
 def extract_features(out_dir, inp_txt, num_threads):
-    
-    #Create a folder to store the extracted features
+    # Create a folder to store the extracted features
     feat_folder = os.path.normpath(out_dir) + '/' + 'melspec/'
     os.makedirs(feat_folder, exist_ok=True)
 
-    #Reading the input file
+    # Reading the input file
     with open(inp_txt, 'r') as f:
         lines = f.readlines()
 
@@ -38,9 +37,8 @@ def extract_features(out_dir, inp_txt, num_threads):
         for x in tqdm(files))
 
 
-
-if __name__=="__main__":
-    parser  = argparse.ArgumentParser()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--scratch', help='Path to scratch folder')
     parser.add_argument('-i', '--input_file', help='ASCII text file with all the audio file paths')
     parser.add_argument('-n', '--num_threads', type=int, default=4, help='Num of threads to use')

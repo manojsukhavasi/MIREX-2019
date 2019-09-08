@@ -3,7 +3,6 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 import torch
-import torch.nn as nn
 from torch.utils.data import Dataset
 from torchvision import transforms
 
@@ -19,6 +18,7 @@ albumentations_transform = Compose([
     ToTensor()
 ])
 
+
 def get_train_val_data(inp_txt):
 
     print('Reading training list file...')
@@ -29,23 +29,23 @@ def get_train_val_data(inp_txt):
     fnames = [line.split('\t')[0] for line in lines]
     labels = [line.split('\t')[-1] for line in lines]
     ref_labels = list(sorted(set(labels)))
-    ref_labels_dict = {rl:i for i,rl in enumerate(ref_labels)}
+    ref_labels_dict = {rl: i for i, rl in enumerate(ref_labels)}
     labels = [ref_labels_dict[l] for l in labels]
-    
     return train_test_split(fnames, labels, shuffle=True, stratify=labels, test_size=0.20)
+
 
 def get_test_data(inp_txt):
 
     with open(inp_txt, 'r') as f:
         lines = f.readlines()
 
-    fnames = [line.rstrip() for line in lines]    
+    fnames = [line.rstrip() for line in lines]
     return fnames
 
 
 class AudioDataset(Dataset):
 
-    def __init__(self, fnames, labels, root_dir, train=True):        
+    def __init__(self, fnames, labels, root_dir, train=True):
         self.fnames = fnames
         self.labels = labels
         self.melspec_dir = root_dir
@@ -57,7 +57,7 @@ class AudioDataset(Dataset):
             self.melspec_dir + '/' + fname + '.npy'
             for fname in self.fnames]
 
-        self.transform=None
+        self.transform = None
         self.pil = transforms.ToPILImage()
         if train:
             self.transform = albumentations_transform

@@ -1,4 +1,6 @@
-import os, argparse, random
+import os
+import argparse
+import random
 from shutil import copyfile
 
 
@@ -16,18 +18,18 @@ def generate_sample_data(data_folder, input_wav):
         fname = os.path.abspath(f'{raw_dir}/sample{i}.wav')
         feat_file.write(f'{fname}\n')
         copyfile(input_wav, fname)
-        if i <1000:
+        if i < 1000:
             label = random.choice(labels)
             train_file.write(f'{fname}\t{label}\n')
         else:
             test_file.write(f'{fname}\n')
-            
     feat_file.close()
     train_file.close()
     test_file.close()
 
-if __name__=="__main__":
-    parser  = argparse.ArgumentParser()
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--data_folder', help='Path to data folder')
     parser.add_argument('-i', '--input_file', help='sample wav file for testing')
 

@@ -94,7 +94,7 @@ def train(out_dir, inp_txt, num_threads, task, batch_size=4):
         if epochs_without_new_lowest >= 25:
             break
 
-        print(f'Epoch: {i+1}\ttrain_loss: {this_epoch_train_loss}\tval_loss: this_epoch_valid_loss')
+        print(f'Epoch: {i+1}\ttrain_loss: {this_epoch_train_loss}\tval_loss: {this_epoch_valid_loss}')
 
         scheduler.step(this_epoch_valid_loss)
 

@@ -39,7 +39,8 @@ def train(out_dir, inp_txt, num_threads, task, batch_size=4):
     train_fnames, val_fnames, train_labels, val_labels = get_train_val_data(inp_txt)
 
     train_dataset = AudioDataset(train_fnames, train_labels, melspec_dir)
-    val_dataset = AudioDataset(val_fnames, val_labels, melspec_dir, train=False)
+    val_dataset = AudioDataset(val_fnames, val_labels, melspec_dir, False,
+                               train_dataset.mean, train_dataset.std)
 
     train_loader_1 = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     train_loader_2 = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
@@ -93,7 +94,7 @@ def train(out_dir, inp_txt, num_threads, task, batch_size=4):
             with torch.set_grad_enabled(True):
                 model = model.train()
                 outputs = model(inputs)
-                loss = mixup_cross_entropy_loss(outputs, labels, False)
+                loss = mixup_cross_entropy_loss(outputs, labels)
                 loss.backward()
                 optimizer.step()
                 this_epoch_train_loss += loss.detach().cpu().numpy()

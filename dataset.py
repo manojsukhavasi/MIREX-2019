@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from sklearn.model_selection import train_test_split
+from runstats import Statistics
 
 import torch
 from torch.utils.data import Dataset
@@ -45,10 +46,12 @@ def get_test_data(inp_txt):
 
 class AudioDataset(Dataset):
 
-    def __init__(self, fnames, labels, root_dir, train=True):
+    def __init__(self, fnames, labels, root_dir, train=True, mean=None, std=None):
         self.fnames = fnames
         self.labels = labels
         self.melspec_dir = root_dir
+        self.mean = mean
+        self.std = std
 
         self.fnames = [
             os.path.splitext(os.path.basename(fname))[0]
@@ -64,6 +67,12 @@ class AudioDataset(Dataset):
 
         self._find_min_width()
 
+        if self.mean is None:
+            self.stats = Statistics()
+            self._update_stats()
+            self.mean = self.stats.mean()
+            self.std = self.stats.stddev()
+
     def __len__(self):
         return len(self.fnames)
 
@@ -72,10 +81,16 @@ class AudioDataset(Dataset):
             np.load(x).shape[1]
             for x in self.fnames)
 
+    def _update_stats(self):
+        for fname in self.fnames[:50]:
+            this_sample = np.load(fname)
+            self.stats += Statistics(this_sample.flat)
+
     def __getitem__(self, idx):
 
         fname = self.fnames[idx]
         sample = np.load(fname)[:, :self.min_width]
+        sample = (sample - self.mean) / self.std
 
         if self.transform:
             # min-max transformation
@@ -107,9 +122,11 @@ class AudioDataset(Dataset):
 
 
 class TestDataset(Dataset):
-    def __init__(self, fnames, root_dir):
+    def __init__(self, fnames, root_dir, mean, std):
         self.fnames = fnames
         self.melspec_dir = root_dir
+        self.mean = mean
+        self.std = std
 
         self.fnames = [
             os.path.splitext(os.path.basename(fname))[0]
@@ -132,6 +149,7 @@ class TestDataset(Dataset):
 
         fname = self.fnames[idx]
         sample = np.load(fname)[:, :self.min_width]
+        sample = (sample - self.mean) / self.std
 
         i = np.random.randint(sample.shape[1])
         sample = np.concatenate((sample[:, i:], sample[:, :i]), axis=1)

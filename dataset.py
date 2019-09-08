@@ -22,7 +22,6 @@ albumentations_transform = Compose([
 
 def get_train_val_data(inp_txt):
 
-    print('Reading training list file...')
     with open(inp_txt, 'r') as f:
         lines = f.readlines()
 
@@ -32,7 +31,8 @@ def get_train_val_data(inp_txt):
     ref_labels = list(sorted(set(labels)))
     ref_labels_dict = {rl: i for i, rl in enumerate(ref_labels)}
     labels = [ref_labels_dict[l] for l in labels]
-    return train_test_split(fnames, labels, shuffle=True, stratify=labels, test_size=0.20)
+    after_split = train_test_split(fnames, labels, shuffle=True, stratify=labels, test_size=0.20)
+    return ref_labels_dict, after_split
 
 
 def get_test_data(inp_txt):

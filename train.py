@@ -33,12 +33,17 @@ def train(out_dir, inp_txt, num_threads, task, batch_size=64):
 
     melspec_dir = os.path.normpath(out_dir) + '/melspec'
 
-    # create a model directory
+    print('Create directory to save models...')
     model_dir = os.path.normpath(out_dir) + '/' + 'model'
     os.makedirs(model_dir, exist_ok=True)
 
-    train_fnames, val_fnames, train_labels, val_labels = get_train_val_data(inp_txt)
+    print('Reading training list file...')
+    ref_labels_dict, (train_fnames, val_fnames, train_labels, val_labels) =\
+        get_train_val_data(inp_txt)
+    with open(out_dir + '/label_ids.pkl', 'wb') as f:
+        pickle.dump(ref_labels_dict, f)
 
+    print('Creating PyTorch datasets...')
     train_dataset = AudioDataset(train_fnames, train_labels, melspec_dir)
     val_dataset = AudioDataset(val_fnames, val_labels, melspec_dir, False,
                                train_dataset.mean, train_dataset.std)
@@ -71,6 +76,7 @@ def train(out_dir, inp_txt, num_threads, task, batch_size=64):
     lowest_val_loss = np.inf
     epochs_without_new_lowest = 0
 
+    print('Training...')
     for i in range(epochs):
 
         this_epoch_train_loss = 0

@@ -14,7 +14,8 @@ def classify(out_dir, inp_txt, out_file, num_threads, task, batch_size=4):
     melspec_dir = os.path.normpath(out_dir) + '/melspec'
     model_dir = os.path.normpath(out_dir) + '/' + 'model'
     best_model_path = model_dir + '/best_model.pth'
-    mean_std_path = os.path.normpath(out_dir) + '/' + 'mean_std.pkl'
+    mean_std_path = os.path.normpath(out_dir) + '/mean_std.pkl'
+    labels_path = os.path.normpath(out_dir) + '/label_ids.pkl'
 
     with open(mean_std_path, 'rb') as f:
         mean, std = pickle.load(f)
@@ -42,9 +43,15 @@ def classify(out_dir, inp_txt, out_file, num_threads, task, batch_size=4):
             _, predicted = torch.max(outputs, 1)
         test_preds.extend(list(predicted.numpy()))
 
+    with open(labels_path, 'rb') as f:
+        ref_labels_dict = pickle.load(f)
+    ids_to_labels = {i: x for x, i in ref_labels_dict.items()}
+
     with open(out_file, 'w') as f:
         for i in range(len(test_fnames)):
-            f.write(f'{test_fnames[i]}\t{test_preds[i]}\n')
+            this_file = test_fnames[i]
+            this_pred = ids_to_labels[test_preds[i]]
+            f.write(f'{this_file}\t{this_pred}\n')
 
 
 if __name__ == "__main__":

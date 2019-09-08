@@ -4,12 +4,12 @@
 
 | Task                                      | No of samples | No of Classes |
 |-------------------------------------------|---------------|---------------|
-| Audio Classical Composer Identification | 2772          | 11            |
+| [Audio Classical Composer Identification](https://www.music-ir.org/mirex/wiki/2019:Audio_Classification_(Train/Test)_Tasks) | 2772          | 11            |
 | Audio US Pop Music Genre Classification   | 7000          | 10            |
 | Audio Latin Music Genre Classification    | 3227          | 10            |
-| Audio Mood Classification                 | 600           | 5             |
-| Audio K-POP Mood Classification           | 1438          | 5             |
-| Audio K-POP Genre Classification          | 1894          | 7             |
+| Audio Music Mood Classification                 | 600           | 5             |
+| [Audio K-POP Mood Classification](https://www.music-ir.org/mirex/wiki/2019:Audio_K-POP_Mood_Classification)           | 1438          | 5             |
+| [Audio K-POP Genre Classification](https://www.music-ir.org/mirex/wiki/2019:Audio_K-POP_Genre_Classification)          | 1894          | 7             |
 
 ## Requirements
 - Python >= 3.6

@@ -11,6 +11,9 @@
 | Audio K-POP Mood Classification           | 1438          | 5             |
 | Audio K-POP Genre Classification          | 1894          | 7             |
 
+## Requirements
+- Python >= 3.6
+
 ## Running commands
 
 ### generating sample data

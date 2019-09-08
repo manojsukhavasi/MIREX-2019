@@ -13,6 +13,9 @@
 
 ## Requirements
 - Python >= 3.6
+- Python packages:
+  - librosa, numpy, pandas, joblib, tqdm, sklearn, albumentations
+  - PyTorch >= 1.1
 
 ## Running commands
 

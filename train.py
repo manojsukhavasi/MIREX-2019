@@ -9,7 +9,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 
 from dataset import get_train_val_data, AudioDataset
-from model import Task5Model
+from model import MirexModel
 from config import CONFIG
 
 
@@ -29,7 +29,7 @@ def train(out_dir, inp_txt, num_threads, task):
     val_loader = DataLoader(val_dataset, batch_size=4)
 
     num_classes = CONFIG[task]['num_classes']
-    model = Task5Model(num_classes)
+    model = MirexModel(num_classes)
     print(model)
 
     # Define optimizer, scheduler and loss criteria

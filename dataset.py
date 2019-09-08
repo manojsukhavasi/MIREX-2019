@@ -62,13 +62,20 @@ class AudioDataset(Dataset):
         if train:
             self.transform = albumentations_transform
 
+        self._find_min_width()
+
     def __len__(self):
         return len(self.fnames)
+
+    def _find_min_width(self):
+        self.min_width = min(
+            np.load(x).shape[1]
+            for x in self.fnames)
 
     def __getitem__(self, idx):
 
         fname = self.fnames[idx]
-        sample = np.load(fname)
+        sample = np.load(fname)[:, :self.min_width]
 
         if self.transform:
             # min-max transformation
@@ -111,13 +118,20 @@ class TestDataset(Dataset):
             self.melspec_dir + '/' + fname + '.npy'
             for fname in self.fnames]
 
+        self._find_min_width()
+
     def __len__(self):
         return len(self.fnames)
+
+    def _find_min_width(self):
+        self.min_width = min(
+            np.load(x).shape[1]
+            for x in self.fnames)
 
     def __getitem__(self, idx):
 
         fname = self.fnames[idx]
-        sample = np.load(fname)
+        sample = np.load(fname)[:, :self.min_width]
 
         i = np.random.randint(sample.shape[1])
         sample = np.concatenate((sample[:, i:], sample[:, :i]), axis=1)

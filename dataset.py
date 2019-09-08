@@ -51,7 +51,7 @@ class AudioDataset(Dataset):
         self.melspec_dir = root_dir
 
         self.fnames = [
-            os.path.splittext(os.path.basename(fname))[0]
+            os.path.splitext(os.path.basename(fname))[0]
             for fname in self.fnames]
         self.fnames = [
             self.melspec_dir + '/' + fname + '.npy'
@@ -105,7 +105,7 @@ class TestDataset(Dataset):
         self.melspec_dir = root_dir
 
         self.fnames = [
-            os.path.splittext(os.path.basename(fname))[0]
+            os.path.splitext(os.path.basename(fname))[0]
             for fname in self.fnames]
         self.fnames = [
             self.melspec_dir + '/' + fname + '.npy'

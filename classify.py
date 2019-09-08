@@ -10,7 +10,7 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
 from dataset import get_test_data, TestDataset
-from model import Task5Model
+from model import MirexModel
 from config import CONFIG
 
 def classify(out_dir, inp_txt, out_file, num_threads, task):
@@ -28,7 +28,7 @@ def classify(out_dir, inp_txt, out_file, num_threads, task):
     print('Device: ', device)
 
     num_classes = CONFIG[task]['num_classes']
-    model = Task5Model(num_classes)
+    model = MirexModel(num_classes)
     model = model.to(device)
     model.load_state_dict(torch.load(best_model_path)) #Loading the best model
 

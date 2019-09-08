@@ -27,6 +27,9 @@ def mixup_cross_entropy_loss(inp, target, size_average=True):
 
 def train(out_dir, inp_txt, num_threads, task, batch_size=4):
 
+    torch.set_num_threads(num_threads)
+    print('Number of threads: ', torch.get_num_threads())
+
     melspec_dir = os.path.normpath(out_dir) + '/melspec'
 
     # create a model directory

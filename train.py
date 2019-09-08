@@ -2,6 +2,7 @@ import os
 import pickle
 import numpy as np
 import argparse
+import  time
 
 import torch
 import torch.nn as nn
@@ -26,7 +27,7 @@ def mixup_cross_entropy_loss(inp, target, size_average=True):
     return loss / inp.size()[0] if size_average else loss
 
 
-def train(out_dir, inp_txt, num_threads, task, batch_size=64):
+def train(out_dir, inp_txt, num_threads, task, batch_size):
 
     torch.set_num_threads(num_threads)
     print('Number of threads: ', torch.get_num_threads())
@@ -79,6 +80,7 @@ def train(out_dir, inp_txt, num_threads, task, batch_size=64):
     print('Training...')
     for i in range(epochs):
 
+        start_time = time.time()
         this_epoch_train_loss = 0
         for i1, i2 in zip(train_loader_1, train_loader_2):
 
@@ -138,7 +140,7 @@ def train(out_dir, inp_txt, num_threads, task, batch_size=64):
         if epochs_without_new_lowest >= 25:
             break
 
-        print(f'Epoch: {i+1}\ttrain_loss: {this_epoch_train_loss}\tval_loss: {this_epoch_valid_loss}')
+        print(f'Epoch: {i+1}\ttrain_loss: {this_epoch_train_loss}\tval_loss: {this_epoch_valid_loss}\ttime: {(time.time()-start_time):.0f}')
 
         scheduler.step(this_epoch_valid_loss)
 
@@ -148,9 +150,11 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--scratch', help='Path to scratch folder')
     parser.add_argument('-i', '--input_file', help='ASCII text file with train labels')
     parser.add_argument('-n', '--num_threads', type=int, default=4, help='Num of threads to use')
+    parser.add_argument('-b', '--batch_size', type=int, default=32, help='Batchsize')
     parser.add_argument('-t', '--task', type=str, default='kpop_mood',
                         help='Task name, see config for choices')
 
+
     args = parser.parse_args()
-    train(args.scratch, args.input_file, args.num_threads, args.task)
+    train(args.scratch, args.input_file, args.num_threads, args.task, args.batch_size)
     print('Training completed')

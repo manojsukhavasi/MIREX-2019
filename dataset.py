@@ -1,5 +1,5 @@
+import os
 import numpy as np
-from random_erasing import RandomErasing
 from sklearn.model_selection import train_test_split
 
 import torch
@@ -9,6 +9,7 @@ from torchvision import transforms
 
 from albumentations import Compose, ShiftScaleRotate, GridDistortion
 from albumentations.pytorch import ToTensor
+from random_erasing import RandomErasing
 
 random_erasing = RandomErasing()
 
@@ -20,6 +21,7 @@ albumentations_transform = Compose([
 
 def get_train_val_data(inp_txt):
 
+    print('Reading training list file...')
     with open(inp_txt, 'r') as f:
         lines = f.readlines()
 
@@ -47,11 +49,18 @@ class AudioDataset(Dataset):
         self.fnames = fnames
         self.labels = labels
         self.melspec_dir = root_dir
+
+        self.fnames = [
+            os.path.splittext(os.path.basename(fname))[0]
+            for fname in self.fnames]
+        self.fnames = [
+            self.melspec_dir + '/' + fname + '.npy'
+            for fname in self.fnames]
+
         self.transform=None
         self.pil = transforms.ToPILImage()
         if train:
             self.transform = albumentations_transform
-        
 
     def __len__(self):
         return len(self.fnames)
@@ -59,9 +68,6 @@ class AudioDataset(Dataset):
     def __getitem__(self, idx):
 
         fname = self.fnames[idx]
-        fname = fname.split('/')[-1].split('.')[0]
-        fname = self.melspec_dir + '/' + fname + '.npy'
-
         sample = np.load(fname)
 
         if self.transform:
@@ -98,15 +104,19 @@ class TestDataset(Dataset):
         self.fnames = fnames
         self.melspec_dir = root_dir
 
+        self.fnames = [
+            os.path.splittext(os.path.basename(fname))[0]
+            for fname in self.fnames]
+        self.fnames = [
+            self.melspec_dir + '/' + fname + '.npy'
+            for fname in self.fnames]
+
     def __len__(self):
         return len(self.fnames)
 
     def __getitem__(self, idx):
 
         fname = self.fnames[idx]
-        fname = fname.split('/')[-1].split('.')[0]
-        fname = self.melspec_dir + '/' + fname + '.npy'
-
         sample = np.load(fname)
 
         i = np.random.randint(sample.shape[1])

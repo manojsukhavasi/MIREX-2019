@@ -13,9 +13,10 @@ from model import MirexModel
 from config import CONFIG
 
 
-def train(out_dir, inp_txt, num_threads, task):
+def train(out_dir, inp_txt, num_threads, task, batch_size=4):
     
     melspec_dir = os.path.normpath(out_dir)+ '/melspec'
+
     #create a model directory
     model_dir = os.path.normpath(out_dir) + '/' + 'model'
     os.makedirs(model_dir, exist_ok=True)
@@ -25,8 +26,8 @@ def train(out_dir, inp_txt, num_threads, task):
     train_dataset = AudioDataset(train_fnames, train_labels, melspec_dir)
     val_dataset = AudioDataset(val_fnames, val_labels, melspec_dir, train=False)
 
-    train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=4)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size)
 
     num_classes = CONFIG[task]['num_classes']
     model = MirexModel(num_classes)
@@ -40,7 +41,6 @@ def train(out_dir, inp_txt, num_threads, task):
     cuda=False
     device = torch.device('cuda:0' if cuda else 'cpu')
     print('Device: ', device)
-
     model = model.to(device)
 
     epochs = 100
@@ -52,7 +52,7 @@ def train(out_dir, inp_txt, num_threads, task):
     for i in range(epochs):
 
         this_epoch_train_loss = 0
-        for inputs,labels in train_loader:
+        for inputs, labels in train_loader:
 
             inputs = inputs.to(device)
             labels = labels.to(device)
@@ -61,7 +61,6 @@ def train(out_dir, inp_txt, num_threads, task):
             with torch.set_grad_enabled(True):
                 model = model.train()
                 outputs = model(inputs)
-                # calculate loss for each set of annotations
                 loss = criterion(outputs, labels)
                 loss.backward()
                 optimizer.step()

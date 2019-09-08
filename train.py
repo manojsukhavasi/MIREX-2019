@@ -10,9 +10,10 @@ from torch.utils.data import DataLoader
 
 from dataset import get_train_val_data, AudioDataset
 from model import Task5Model
+from config import CONFIG
 
 
-def train(out_dir, inp_txt, num_threads):
+def train(out_dir, inp_txt, num_threads, task):
     
     melspec_dir = os.path.normpath(out_dir)+ '/melspec'
     #create a model directory
@@ -27,7 +28,8 @@ def train(out_dir, inp_txt, num_threads):
     train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=4)
 
-    model = Task5Model(5)
+    num_classes = CONFIG[task]['num_classes']
+    model = Task5Model(num_classes)
     print(model)
 
     # Define optimizer, scheduler and loss criteria
@@ -103,7 +105,8 @@ if __name__=="__main__":
     parser.add_argument('-s', '--scratch', help='Path to scratch folder')
     parser.add_argument('-i', '--input_file', help='ASCII text file with train labels')
     parser.add_argument('-n', '--num_threads', type=int, default=4, help='Num of threads to use')
+    parser.add_argument('-t', '--task', type=str, default='kpop_mood', help='Task name, see config for choices')
 
     args = parser.parse_args()
-    train(args.scratch, args.input_file, args.num_threads)
+    train(args.scratch, args.input_file, args.num_threads, args.task)
     print('Training completed')

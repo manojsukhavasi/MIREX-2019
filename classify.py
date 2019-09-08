@@ -11,8 +11,9 @@ from torch.utils.data import DataLoader
 
 from dataset import get_test_data, TestDataset
 from model import Task5Model
+from config import CONFIG
 
-def classify(out_dir, inp_txt, out_file, num_threads):
+def classify(out_dir, inp_txt, out_file, num_threads, task):
     
     melspec_dir = os.path.normpath(out_dir)+ '/melspec'
     model_dir = os.path.normpath(out_dir) + '/' + 'model'
@@ -26,7 +27,8 @@ def classify(out_dir, inp_txt, out_file, num_threads):
     device = torch.device('cuda:0' if cuda else 'cpu')
     print('Device: ', device)
 
-    model = Task5Model(5)
+    num_classes = CONFIG[task]['num_classes']
+    model = Task5Model(num_classes)
     model = model.to(device)
     model.load_state_dict(torch.load(best_model_path)) #Loading the best model
 
@@ -52,7 +54,8 @@ if __name__=="__main__":
     parser.add_argument('-i', '--input_file', help='ASCII text file with train labels')
     parser.add_argument('-o', '--out_file', help='ASCII text file with train labels')
     parser.add_argument('-n', '--num_threads', type=int, default=4, help='Num of threads to use')
+    parser.add_argument('-t', '--task', type=str, default='kpop_mood', help='Task name, see config for choices')
 
     args = parser.parse_args()
-    classify(args.scratch, args.input_file, args.out_file, args.num_threads)
+    classify(args.scratch, args.input_file, args.out_file, args.num_threads, args.task)
     print('Classification completed')

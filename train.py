@@ -1,4 +1,5 @@
 import os
+import pickle
 import numpy as np
 import argparse
 
@@ -25,7 +26,7 @@ def mixup_cross_entropy_loss(inp, target, size_average=True):
     return loss / inp.size()[0] if size_average else loss
 
 
-def train(out_dir, inp_txt, num_threads, task, batch_size=4):
+def train(out_dir, inp_txt, num_threads, task, batch_size=64):
 
     torch.set_num_threads(num_threads)
     print('Number of threads: ', torch.get_num_threads())
@@ -41,6 +42,10 @@ def train(out_dir, inp_txt, num_threads, task, batch_size=4):
     train_dataset = AudioDataset(train_fnames, train_labels, melspec_dir)
     val_dataset = AudioDataset(val_fnames, val_labels, melspec_dir, False,
                                train_dataset.mean, train_dataset.std)
+
+    mean, std = train_dataset.mean, train_dataset.std
+    with open(out_dir + '/mean_std.pkl', 'wb') as f:
+        pickle.dump((mean, std), f)
 
     train_loader_1 = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     train_loader_2 = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)

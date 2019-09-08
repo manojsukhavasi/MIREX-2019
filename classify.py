@@ -1,5 +1,6 @@
 import os
 import argparse
+import pickle
 
 import torch
 from torch.utils.data import DataLoader
@@ -9,14 +10,18 @@ from model import MirexModel
 from config import CONFIG
 
 
-def classify(out_dir, inp_txt, out_file, num_threads, task):
+def classify(out_dir, inp_txt, out_file, num_threads, task, batch_size=4):
     melspec_dir = os.path.normpath(out_dir) + '/melspec'
     model_dir = os.path.normpath(out_dir) + '/' + 'model'
     best_model_path = model_dir + '/best_model.pth'
+    mean_std_path = os.path.normpath(out_dir) + '/' + 'mean_std.pkl'
+
+    with open(mean_std_path, 'rb') as f:
+        mean, std = pickle.load(f)
 
     test_fnames = get_test_data(inp_txt)
-    test_dataset = TestDataset(test_fnames, melspec_dir)
-    test_loader = DataLoader(test_dataset, batch_size=4)
+    test_dataset = TestDataset(test_fnames, melspec_dir, mean, std)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size)
 
     cuda = False
     device = torch.device('cuda:0' if cuda else 'cpu')

@@ -19,8 +19,6 @@
 
 ## Setting up environment
 
-- make sure you have `sudo apt-get install libsndfile1`
-
 - `mkdir -p mirex`
 - `tar -xzf mirex.tar.gz -C mirex`
 - `source mirex/bin/activate`

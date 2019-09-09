@@ -18,11 +18,14 @@
   - PyTorch >= 1.1
 
 ## Setting up environment
-
+Use the provided packaged archive (created using [conda-pack](https://github.com/conda/conda-pack)):
 - `mkdir -p mirex`
 - `tar -xzf mirex.tar.gz -C mirex`
 - `source mirex/bin/activate`
 - `conda-unpack`
+
+Or, create a new conda environment using the provided [environment.yml](environment.yml) file:
+`conda create -f environment.yml`
 
 
 ## Running commands

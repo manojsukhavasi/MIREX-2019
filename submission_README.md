@@ -19,13 +19,13 @@
 ### Training
 - Disk space requirements ~ None
 - Time Taken ~ 10-15Hrs
-- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4`
+- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4 --task classical`
 - If you get a Memory Error, please use `--batch_size` parameter to decrease the batch size to 16/8/4
 
 ### Classification
 - Disk space requirements ~ None
 - Time Taken ~ 30min
-- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4`
+- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4 --task classical`
 
 
 ## Audio US Pop Music Genre Classification
@@ -34,8 +34,8 @@
 - Download `mirex.tar.gz`. This is a conda package which has all the libraries required.
 - Create a folder for environment setup `mkdir -p mirex2019_sm`
 - Unpack the package in to the folder created `tar -xzf mirex.tar.gz -C mirex2019_sm`
-- Activate the conda enviroment `source mirex2019_sm/bin/activate`
-- `conda-unpack`
+- Activate the conda environment in `bash` shell: `source mirex2019_sm/bin/activate`
+- Run the command `conda-unpack`
 - unzip the code directory
 
 ### Feature extraction
@@ -46,13 +46,13 @@
 ### Training
 - Disk space requirements ~ None
 - Time Taken ~ 25-40Hrs
-- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4`
+- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4 --task us_pop`
 - If you get a Memory Error, please use `--batch_size` parameter to decrease the batch size to 16/8/4
 
 ### Classification
 - Disk space requirements ~ None
 - Time Taken ~ 90min
-- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4`
+- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4 --task us_pop`
 
 ## Audio Latin Music Genre Classification
 ### Environment and setup
@@ -60,8 +60,8 @@
 - Download `mirex.tar.gz`. This is a conda package which has all the libraries required.
 - Create a folder for environment setup `mkdir -p mirex2019_sm`
 - Unpack the package in to the folder created `tar -xzf mirex.tar.gz -C mirex2019_sm`
-- Activate the conda enviroment `source mirex2019_sm/bin/activate`
-- `conda-unpack`
+- Activate the conda environment in `bash` shell: `source mirex2019_sm/bin/activate`
+- Run the command `conda-unpack`
 - unzip the code directory
 
 ### Feature extraction
@@ -72,13 +72,13 @@
 ### Training
 - Disk space requirements ~ None
 - Time Taken ~ 10-15Hrs
-- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4`
+- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4 --task latin`
 - If you get a Memory Error, please use `--batch_size` parameter to decrease the batch size to 16/8/4
 
 ### Classification
 - Disk space requirements ~ None
 - Time Taken ~ 30min
-- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4`
+- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4 --task latin`
 
 ## Audio Music Mood Classification
 ### Environment and setup
@@ -86,8 +86,8 @@
 - Download `mirex.tar.gz`. This is a conda package which has all the libraries required.
 - Create a folder for environment setup `mkdir -p mirex2019_sm`
 - Unpack the package in to the folder created `tar -xzf mirex.tar.gz -C mirex2019_sm`
-- Activate the conda enviroment `source mirex2019_sm/bin/activate`
-- `conda-unpack`
+- Activate the conda environment in `bash` shell: `source mirex2019_sm/bin/activate`
+- Run the command `conda-unpack`
 - unzip the code directory
 
 ### Feature extraction
@@ -98,13 +98,13 @@
 ### Training
 - Disk space requirements ~ None
 - Time Taken ~ 3-5Hrs
-- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4`
+- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4 --task mood`
 - If you get a Memory Error, please use `--batch_size` parameter to decrease the batch size to 16/8/4
 
 ### Classification
 - Disk space requirements ~ None
 - Time Taken ~ 10min
-- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4`
+- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4 --task mood`
 
 ## Audio K-POP Mood Classification
 ### Environment and setup
@@ -112,8 +112,8 @@
 - Download `mirex.tar.gz`. This is a conda package which has all the libraries required.
 - Create a folder for environment setup `mkdir -p mirex2019_sm`
 - Unpack the package in to the folder created `tar -xzf mirex.tar.gz -C mirex2019_sm`
-- Activate the conda enviroment `source mirex2019_sm/bin/activate`
-- `conda-unpack`
+- Activate the conda environment in `bash` shell: `source mirex2019_sm/bin/activate`
+- Run the command `conda-unpack`
 - unzip the code directory
 
 ### Feature extraction
@@ -124,13 +124,13 @@
 ### Training
 - Disk space requirements ~ None
 - Time Taken ~ 5-8Hrs
-- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4`
+- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4 --task kpop_mood`
 - If you get a Memory Error, please use `--batch_size` parameter to decrease the batch size to 16/8/4
 
 ### Classification
 - Disk space requirements ~ None
 - Time Taken ~ 15min
-- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4`
+- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4 --task kpop_mood`
 
 ## Audio K-POP Genre Classification
 ### Environment and setup
@@ -138,8 +138,8 @@
 - Download `mirex.tar.gz`. This is a conda package which has all the libraries required.
 - Create a folder for environment setup `mkdir -p mirex2019_sm`
 - Unpack the package in to the folder created `tar -xzf mirex.tar.gz -C mirex2019_sm`
-- Activate the conda enviroment `source mirex2019_sm/bin/activate`
-- `conda-unpack`
+- Activate the conda environment in `bash` shell: `source mirex2019_sm/bin/activate`
+- Run the command `conda-unpack`
 - unzip the code directory
 
 ### Feature extraction
@@ -150,10 +150,10 @@
 ### Training
 - Disk space requirements ~ None
 - Time Taken ~ 7-10Hrs
-- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4`
+- `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4 --task kpop_genre`
 - If you get a Memory Error, please use `--batch_size` parameter to decrease the batch size to 16/8/4
 
 ### Classification
 - Disk space requirements ~ None
 - Time Taken ~ 20min
-- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4`
+- `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4 --task kpop_genre`

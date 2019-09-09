@@ -6,9 +6,9 @@
 
 - Download `mirex.tar.gz`. This is a conda package which has all the libraries required.
 - Create a folder for environment setup `mkdir -p mirex2019_sm`
-- Unpack the package in to the folder created `tar -xzf mirex.tar.gz -C mirex2019_sm`
-- Activate the conda enviroment `source mirex2019_sm/bin/activate`
-- `conda-unpack`
+- Unpack the package into the folder created `tar -xzf mirex.tar.gz -C mirex2019_sm`
+- Activate the conda environment in `bash` shell: `source mirex2019_sm/bin/activate`
+- Run the command `conda-unpack`
 - unzip the code directory
 
 ### Feature extraction

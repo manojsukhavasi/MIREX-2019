@@ -35,13 +35,13 @@ def train(out_dir, inp_txt, num_threads, task, batch_size):
     melspec_dir = os.path.normpath(out_dir) + '/melspec'
 
     print('Create directory to save models...')
-    model_dir = os.path.normpath(out_dir) + '/' + 'model'
+    model_dir = os.path.normpath(out_dir) + '/' + f'{task}_model'
     os.makedirs(model_dir, exist_ok=True)
 
     print('Reading training list file...')
     ref_labels_dict, (train_fnames, val_fnames, train_labels, val_labels) =\
         get_train_val_data(inp_txt)
-    with open(out_dir + '/label_ids.pkl', 'wb') as f:
+    with open(model_dir + '/label_ids.pkl', 'wb') as f:
         pickle.dump(ref_labels_dict, f)
 
     print('Creating PyTorch datasets...')
@@ -50,7 +50,7 @@ def train(out_dir, inp_txt, num_threads, task, batch_size):
                                train_dataset.mean, train_dataset.std)
 
     mean, std = train_dataset.mean, train_dataset.std
-    with open(out_dir + '/mean_std.pkl', 'wb') as f:
+    with open(model_dir + '/mean_std.pkl', 'wb') as f:
         pickle.dump((mean, std), f)
 
     train_loader_1 = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
@@ -140,9 +140,11 @@ def train(out_dir, inp_txt, num_threads, task, batch_size):
         if epochs_without_new_lowest >= 25:
             break
 
-        print(f'Epoch: {i+1}\ttrain_loss: {this_epoch_train_loss}\tval_loss: {this_epoch_valid_loss}\ttime: {(time.time()-start_time):.0f}')
+        print(f'Epoch: {i+1}\ttrain_loss: {this_epoch_train_loss}\tval_loss: {this_epoch_valid_loss}\ttime: {(time.time()-start_time):.0f}s')
 
         scheduler.step(this_epoch_valid_loss)
+    
+    return model_dir
 
 
 if __name__ == "__main__":
@@ -150,11 +152,12 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--scratch', help='Path to scratch folder')
     parser.add_argument('-i', '--input_file', help='ASCII text file with train labels')
     parser.add_argument('-n', '--num_threads', type=int, default=4, help='Num of threads to use')
-    parser.add_argument('-b', '--batch_size', type=int, default=32, help='Batchsize')
+    parser.add_argument('-b', '--batch_size', type=int, default=16, help='Batchsize')
     parser.add_argument('-t', '--task', type=str, default='kpop_mood',
                         help='Task name, see config for choices')
 
 
     args = parser.parse_args()
-    train(args.scratch, args.input_file, args.num_threads, args.task, args.batch_size)
+    model_dir = train(args.scratch, args.input_file, args.num_threads, args.task, args.batch_size)
     print('Training completed')
+    print(f'Model saved at {model_dir}')

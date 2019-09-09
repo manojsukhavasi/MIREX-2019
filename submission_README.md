@@ -12,19 +12,19 @@
 - unzip the code directory
 
 ### Feature extraction
-- Disk space requirements ~ 2GB
-- Time Taken ~ 5min
+- Disk space requirements ~ 3GB
+- Time Taken ~ 10min
 - `python extract_features.py --scratch {path_to_scratch_folder} --input_file {feature_extraction_list_file} --num_threads 4`
 
 ### Training
 - Disk space requirements ~ None
-- Time Taken ~ 5-8Hrs
+- Time Taken ~ 10-15Hrs
 - `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4`
 - If you get a Memory Error, please use `--batch_size` parameter to decrease the batch size to 16/8/4
 
 ### Classification
 - Disk space requirements ~ None
-- Time Taken ~ 15min
+- Time Taken ~ 30min
 - `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4`
 
 
@@ -39,19 +39,19 @@
 - unzip the code directory
 
 ### Feature extraction
-- Disk space requirements ~ 2GB
-- Time Taken ~ 5min
+- Disk space requirements ~ 10 GB
+- Time Taken ~ 30min
 - `python extract_features.py --scratch {path_to_scratch_folder} --input_file {feature_extraction_list_file} --num_threads 4`
 
 ### Training
 - Disk space requirements ~ None
-- Time Taken ~ 5-8Hrs
+- Time Taken ~ 25-40Hrs
 - `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4`
 - If you get a Memory Error, please use `--batch_size` parameter to decrease the batch size to 16/8/4
 
 ### Classification
 - Disk space requirements ~ None
-- Time Taken ~ 15min
+- Time Taken ~ 90min
 - `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4`
 
 ## Audio Latin Music Genre Classification
@@ -65,19 +65,19 @@
 - unzip the code directory
 
 ### Feature extraction
-- Disk space requirements ~ 2GB
-- Time Taken ~ 5min
+- Disk space requirements ~ 4GB
+- Time Taken ~ 10min
 - `python extract_features.py --scratch {path_to_scratch_folder} --input_file {feature_extraction_list_file} --num_threads 4`
 
 ### Training
 - Disk space requirements ~ None
-- Time Taken ~ 5-8Hrs
+- Time Taken ~ 10-15Hrs
 - `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4`
 - If you get a Memory Error, please use `--batch_size` parameter to decrease the batch size to 16/8/4
 
 ### Classification
 - Disk space requirements ~ None
-- Time Taken ~ 15min
+- Time Taken ~ 30min
 - `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4`
 
 ## Audio Music Mood Classification
@@ -91,19 +91,19 @@
 - unzip the code directory
 
 ### Feature extraction
-- Disk space requirements ~ 2GB
+- Disk space requirements ~ 1GB
 - Time Taken ~ 5min
 - `python extract_features.py --scratch {path_to_scratch_folder} --input_file {feature_extraction_list_file} --num_threads 4`
 
 ### Training
 - Disk space requirements ~ None
-- Time Taken ~ 5-8Hrs
+- Time Taken ~ 3-5Hrs
 - `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4`
 - If you get a Memory Error, please use `--batch_size` parameter to decrease the batch size to 16/8/4
 
 ### Classification
 - Disk space requirements ~ None
-- Time Taken ~ 15min
+- Time Taken ~ 10min
 - `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4`
 
 ## Audio K-POP Mood Classification
@@ -144,16 +144,16 @@
 
 ### Feature extraction
 - Disk space requirements ~ 2GB
-- Time Taken ~ 5min
+- Time Taken ~ 10min
 - `python extract_features.py --scratch {path_to_scratch_folder} --input_file {feature_extraction_list_file} --num_threads 4`
 
 ### Training
 - Disk space requirements ~ None
-- Time Taken ~ 5-8Hrs
+- Time Taken ~ 7-10Hrs
 - `python train.py --scratch {path_to_scratch_folder} --input_file {train_list_file} --num_threads 4`
 - If you get a Memory Error, please use `--batch_size` parameter to decrease the batch size to 16/8/4
 
 ### Classification
 - Disk space requirements ~ None
-- Time Taken ~ 15min
+- Time Taken ~ 20min
 - `python classify.py --scratch {path_to_scratch_folder} --input_file {test_list_file} --out_file {output_list_file} --num_threads 4`

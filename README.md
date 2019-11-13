@@ -18,7 +18,7 @@
   - PyTorch >= 1.1
 
 ## Setting up environment
-Use the provided packaged archive (created using [conda-pack](https://github.com/conda/conda-pack)):
+Use the provided packaged archive (created using [conda-pack](https://github.com/conda/conda-pack), and the file is available in the releases page):
 - `mkdir -p mirex`
 - `tar -xzf mirex.tar.gz -C mirex`
 - `source mirex/bin/activate`

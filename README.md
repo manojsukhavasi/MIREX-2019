@@ -10,7 +10,6 @@
 | Audio Music Mood Classification                                                                                             | 600             | 5               | [Team AS4](https://www.music-ir.org/nema_out/mirex2019/results/act/mood_report/summary.html) |
 | [Audio K-POP Mood Classification](https://www.music-ir.org/mirex/wiki/2019:Audio_K-POP_Mood_Classification)                 | 1438            | 5               | [Team AS5](https://www.music-ir.org/nema_out/mirex2019/results/act/kmooda_report/)           |
 | [Audio K-POP Genre Classification](https://www.music-ir.org/mirex/wiki/2019:Audio_K-POP_Genre_Classification)               | 1894            | 7               |                                                                                              |
-                                                                                        |
 
 
 ## Requirements
